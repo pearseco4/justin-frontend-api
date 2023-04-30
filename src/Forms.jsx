@@ -9,6 +9,7 @@ function Forms({pokemonList, setPokemonList}) {
     const defenseRef = useRef();
     const speedRef = useRef();
     const [message, setMessage] = useState("");
+    const[deleteMessage, setDeleteMessage] = useState("");
   
     const handleSubmit = async (event) => {
       event.preventDefault();
@@ -23,7 +24,7 @@ function Forms({pokemonList, setPokemonList}) {
   
       try {
         const response = await axios.post("https://pokemonapi-production-04ea.up.railway.app/pokemon", data);
-        setMessage("Pokemon has been submitted");
+        setMessage("Pokemon has been created!");
         setPokemonList((prev) => [response, ...prev])
         nameRef.current.value = "";
         typeRef.current.value = "";
@@ -37,25 +38,39 @@ function Forms({pokemonList, setPokemonList}) {
       }
     };
   
+    const handleDelete = async (pokemonId) => {
+        try {
+          await axios.delete(`https://pokemonapi-production-04ea.up.railway.app/pokemon/${pokemonId}`);
+          setDeleteMessage("Pokemon has been deleted :(");
+          setPokemonList((prev) => prev.filter(pokemon => pokemon.id !== pokemonId));
+        } catch (error) {
+          setDeleteMessage("Error deleting Pokemon");
+          console.error(error);
+        }
+    };
+  
     return (
       <div className="forms">
         <form onSubmit={handleSubmit}>
-          <input className="input" placeholder="enter name" ref={nameRef} />
+          <input className="inputBtn" placeholder="enter name" ref={nameRef} />
           <br />
-          <input placeholder="enter type" ref={typeRef} />
+          <input className="inputBtn"  placeholder="enter type" ref={typeRef} />
           <br />
-          <input placeholder="enter hp" ref={hpRef} />
+          <input className="inputBtn"  placeholder="enter hp" ref={hpRef} />
           <br />
-          <input placeholder="enter attack" ref={attackRef} />
+          <input className="inputBtn"  placeholder="enter attack" ref={attackRef} />
           <br />
-          <input placeholder="enter defense" ref={defenseRef} />
+          <input className="inputBtn"  placeholder="enter defense" ref={defenseRef} />
           <br />
-          <input placeholder="enter speed" ref={speedRef} />
+          <input className="inputBtn"  placeholder="enter speed" ref={speedRef} />
           <br />
-          <input type="submit" value="submit" />
+          <input className="inputBtn"  type="submit" value="submit" />
+          <br />
           <br />
         </form>
+          <button className='inputBtn' onClick={handleDelete}></button>
         {message && <p>{message}</p>}
+        {}
       </div>
     );
   }

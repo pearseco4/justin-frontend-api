@@ -49,6 +49,7 @@ code {
  grid-template-columns: repeat(3, 1fr);
  grid-gap: 20px;
  padding: 10px;
+ background-color: rgb(70, 155, 216);
 }
 
 .pokes {
@@ -71,6 +72,21 @@ justify-content: center;
   justify-content: center;
 }
 
+form {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.inputBtn {
+  padding: 5px;
+  margin: 5px;
+  border: 1px solid black;
+  border-radius: 5px;
+  font-size: 15px;
+  width: 200px;
+}
+
 .myButtons {
   display: flex;
   flex-direction: row;
@@ -87,5 +103,8 @@ justify-content: center;
   display: flex;
   justify-content: center;
   padding-top: 10px;
+  font-weight: 500;
+  font-size: 25px;
+  color: rgb(15, 14, 9);
 }
 
