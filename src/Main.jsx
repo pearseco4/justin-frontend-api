@@ -19,14 +19,14 @@ function FetchPokemon({pokemonList, setPokemonList}) {
           .catch(err => console.log(err))
     }, [])
 
-    const visibleArr = pokemonList.slice(index, index + 100);
+    const visibleArr = pokemonList.slice(index, index + 10);
 
     const handleNext = () => {
-      setIndex(index + 100)
+      setIndex(index + 10)
     };
 
     const handlePrev = () => {
-     setIndex(index - 100)
+     setIndex(index - 10)
     };
 
     const toggleGrassOnly = () => {
@@ -57,28 +57,39 @@ function FetchPokemon({pokemonList, setPokemonList}) {
 
 
 return (
+<> 
+  <div className="type-header">Choose a type</div>
     <div>
+        <div className="myButtons">
+            <button onClick={toggleGrassOnly}>
+              {grassOnly ? "Show All" : "Grass"}
+            </button>
+            <button onClick={toggleFireOnly}>
+              {fireOnly ? "Show All" : "Fire"}
+            </button>
+            <button onClick={toggleWaterOnly}>
+              {waterOnly ? "Show All" : "Water"}
+            </button>
+            <button onClick={toggleBugOnly}>
+              {bugOnly ? "Show All" : "Bug"}
+            </button>
+    </div>
 
-      <div className="myButtons">
-        <button onClick={toggleGrassOnly}>
-          {grassOnly ? "Show All" : "Grass"}
-        </button>
-        <button onClick={toggleFireOnly}>
-          {fireOnly ? "Show All" : "Fire"}
-        </button>
-        <button onClick={toggleWaterOnly}>
-          {waterOnly ? "Show All" : "Water"}
-        </button>
-        <button onClick={toggleBugOnly}>
-          {bugOnly ? "Show All" : "Bug"}
-        </button>
+      <div className="NextPrevpage-buttons">
+            <button 
+              onClick={handleNext} 
+              disabled={index + 100 >= pokemonList.legnth}>
+              Next
+            </button>
+
+            <button 
+              onClick={handlePrev} 
+              disabled={index === 0}>
+              Previous
+            </button>
       </div>
-      <button onClick={handleNext} disabled={index + 100>=pokemonList.legnth}>Next</button>
-      <button onClick={handlePrev} disabled={index === 0}>Previous</button>
       <ul className="pokemonArray">
-
           {filteredList.map((pokemon) => (
-
             <div className="pokes" key={pokemon._id}>
             {pokemon.name} 
             <br />
@@ -93,6 +104,7 @@ return (
         ))}
       </ul>
     </div>
+</>
 )
 }
 export default FetchPokemon

@@ -40,7 +40,7 @@ function Forms({pokemonList, setPokemonList}) {
     return (
       <div className="forms">
         <form onSubmit={handleSubmit}>
-          <input placeholder="enter name" ref={nameRef} />
+          <input className="input" placeholder="enter name" ref={nameRef} />
           <br />
           <input placeholder="enter type" ref={typeRef} />
           <br />
