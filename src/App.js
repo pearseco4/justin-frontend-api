@@ -1,15 +1,16 @@
-import logo from './logo.svg';
-import './App.css';
-import Home from './Home';
-import Header from './Header';
+import React from "react";
+import Main from './Main.jsx';
+import Header from './Header.jsx';
+import Forms from "./Forms";
 
 
 function App() {
   return (
-  <>
-  <Header />
-  <Home />
-  </>  
+    <>
+    <Header />
+    <Forms />
+    <Main />
+    </>
   );
 }
 
