@@ -5,6 +5,9 @@ import { useState } from "react";
 
 function FetchPokemon() {
     const [pokemonList, setPokemonList] = useState([])
+    const [limit, setLimit] = useState(5)
+    const [offset, setOffset] = useState(0);
+    
 
     const [grassOnly, setGrassOnly] = useState(false);
     const [fireOnly, setFireOnly] = useState(false);
@@ -12,11 +15,20 @@ function FetchPokemon() {
     const [bugOnly, setBugOnly] = useState(false);
 
     useEffect(() => {
-        fetch("https://pokemonapi-production-04ea.up.railway.app/pokemon")
-        .then(response => response.json())
-        .then(data => setPokemonList(data))
-        .catch(err => console.log(err))
+        const apiUrl = `https://pokemonapi-production-04ea.up.railway.app/pokemon?limit=${limit}&offset=${offset}`;
+        fetch(apiUrl)
+          .then(response => response.json())
+          .then(data => {
+          const slicedData = data.slice(0, limit);
+          setPokemonList(slicedData)
+          })
+          .catch(err => console.log(err))
     }, [])
+         
+    const handleLoadMore = () => {
+      setOffset(offset + limit);
+      setLimit(limit + 20);
+    };
 
     const toggleGrassOnly = () => {
       setGrassOnly(!grassOnly);
@@ -62,12 +74,12 @@ return (
           {bugOnly ? "Show All" : "Bug"}
         </button>
       </div>
-
+      <button onClick={handleLoadMore}>Next</button>
       <ul className="pokemonArray">
 
           {filteredList.map((pokemon) => (
 
-          <div className="pokes" key={pokemon._id}>
+            <div className="pokes" key={pokemon._id}>
             {pokemon.name} 
             <br />
             {pokemon.type1}
@@ -76,7 +88,7 @@ return (
             attack:{pokemon.attack} <br />
             defense:{pokemon.defense} <br />
             speed:{pokemon.speed} <br />
-          </div>
+            </div>
 
         ))}
       </ul>
