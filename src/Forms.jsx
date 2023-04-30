@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import axios from "axios";
 
-function Forms() {
+function Forms({pokemonList, setPokemonList}) {
     const nameRef = useRef();
     const typeRef = useRef();
     const hpRef = useRef();
@@ -22,8 +22,9 @@ function Forms() {
       };
   
       try {
-        await axios.post("https://pokemonapi-production-04ea.up.railway.app/pokemon", data);
+        const response = await axios.post("https://pokemonapi-production-04ea.up.railway.app/pokemon", data);
         setMessage("Pokemon has been submitted");
+        setPokemonList((prev) => [response, ...prev])
         nameRef.current.value = "";
         typeRef.current.value = "";
         hpRef.current.value = "";
