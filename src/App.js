@@ -13,7 +13,7 @@ function App() {
     <Header />
     <Forms pokemonList={pokemonList} setPokemonList={setPokemonList}/>
     <Main pokemonList={pokemonList} setPokemonList={setPokemonList}/>
-    </>
+    </> 
   );
 }
 

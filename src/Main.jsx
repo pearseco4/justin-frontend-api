@@ -24,7 +24,7 @@ function FetchPokemon({pokemonList, setPokemonList}) {
     const handleNext = () => {
       setIndex(index + 10)
     };
-
+    
     const handlePrev = () => {
      setIndex(index - 10)
     };
